@@ -1,17 +1,14 @@
-const http = require("http");
-const url = require("url");
-http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/html' });//
-  var queryObject = url.parse(req.url, true).query;// it take URL string parse it and it will return a URL object with each part of addressas properties.
-  //age Calculation code
+const http = require('http');
+const url = require('url');
+const server = http.createServer((req, res) => {
+  const queryObject = url.parse(req.url, true).query;
   var currentDate = new Date();
-  var currentYear = currentDate.getFullYear();
-  var age = currentYear - queryObject.year;
-  var m = currentDate.getMonth() - queryObject.getMonth();
-  if (m < 0 || (m === 0 && currentDate.date < queryObject.getDate())) {
+  var age = currentDate.getFullYear() - queryObject.year;
+  var m = currentDate.getMonth() + 1 - queryObject.month;
+  if (m < 0 || (m === 0 && currentDate.getDate() < queryObject.date)) {
     age--;
   }
-  res.write('<p>' + "Hello " + queryObject.name + '</p>');
-  res.write('<p>' + "You are Currently " + age + " years old" + '</p>');
-  res.end();
-}).listen(8000);//
+  res.write('<p>' + 'Hello ' + queryObject.name + '</p>');
+  res.write('<p>' + 'You are Currently ' + age + ' years old' + '</p>');
+});
+server.listen(8080);

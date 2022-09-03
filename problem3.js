@@ -1,20 +1,26 @@
 const http = require('http');
-const url = require("url");
-
-http.createServer((req, res) => {
+const url = require('url');
+const server = http.createServer((req, res) => {
   const queryObject = url.parse(req.url, true).query;
-  console.log(queryObject);
-  if (queryObject.metric === "area") {
-    let area = 3.14 * queryObject.radius * queryObject.radius;
-    res.write("Area of Circle " + area);
-    console.log("Area of Circle " + area);
+  var calc;
+  res.writeHead('200', { 'Content-type': 'text/html' });
+  if (queryObject.object == 'sphere') {
+    if (queryObject.metric == 'volume') {
+      calc = (4 / 3) * 3.14 * Math.pow(queryObject.radius, 3);
+      res.end('<p>' + 'Volume of Sphere is ' + calc + '</p>');
+    } else if (queryObject.metric == 'surfaceArea') {
+      calc = 4 * 3.14 * Math.pow(queryObject.radius, 2);
+      res.end('<p>' + 'Surface Area of Sphere is ' + calc + '</p>');
+    } else {
+      res.end('<p>' + 'Value is not found' + '</p>');
+    }
+  } else if (queryObject.object == 'circle' && queryObject.metric == 'area') {
+    calc = 3.14 * Math.pow(queryObject.radius, 2);
+    res.end('<p>' + 'Area of Circle is ' + calc + '</p>');
+  } else {
+    res.end('<p>' + 'Value is not found' + '</p>');
   }
-  else if (queryObject.object === "sphere" && queryObject.metric === "volume") {
-    let volume = 4 / 3 * 3.14 * queryObject.radius * queryObject.radius * queryObject.radius;
-    volume = volume.toFixed(2);
-    res.write("volume of sphere " + volume);
-    console.log("volume of sphere " + volume);
-  }
-  res.end();
-
-}).listen(8080);
+});
+server.listen(8080, () => {
+  console.log('Server is running on 8080')
+});

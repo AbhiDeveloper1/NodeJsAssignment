@@ -1,14 +1,13 @@
-const fs = require("fs");
-const http = require("http");
-
-const server = http.createServer(function(req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/json' })
-  if (req.url === "/vagetable") {
-    fs.readFile("vaggi.json", "utf-8", (err, data) => {
-      res.end(data)
-    })
+const http = require('http');
+const fs = require('fs');
+const server = http.createServer((req, res) => {
+  if (req.url == '/vegetables') {
+    fs.readFile('vaggie.json', 'utf-8', (err, data) => {
+      res.statusCode = 200;
+      res.end(data);
+    });
   }
-})
-server.listen(3500, () => {
-  console.log("listening data port number 3500");
+});
+server.listen(8080, () => {
+  console.log('listening data port number 8080');
 });
