@@ -1,0 +1,26 @@
+[
+    {
+        "id":1,
+        "studentFirstName":"John",
+        "collegeName":"IIT",
+        "location":"Mumbai"
+    },
+    {
+        "id":2,
+        "studentFirstName":"Mukesh",
+        "collegeName":"IIT",
+        "location":"BHU"
+    },
+    {
+        "id":3,
+        " studentFirstName":"Sukesh",
+        "collegeName":"IIT",
+        "location":"Madras"
+    },
+    {
+        "id":4,
+        "studentFirstName":"Subham",
+        "collegeName":"IIT",
+        "location":"Delhi"
+    }
+]
